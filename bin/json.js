@@ -178,15 +178,17 @@ function openInBrowser(filePath) {
 }
 
 async function main() {
-  if (process.stdin.isTTY) {
-    console.error('Usage: curl https://example.com | json')
+  const inlineInput = process.argv.slice(2).join(' ').trim()
+
+  if (!inlineInput && process.stdin.isTTY) {
+    console.error('Usage: curl https://example.com | json\n   or: json "{\"hello\":\"world\"}"')
     process.exit(1)
   }
 
-  const input = await readStdin()
+  const input = inlineInput || (await readStdin())
 
   if (!input) {
-    console.error('No input received from stdin.')
+    console.error('No JSON input received.')
     process.exit(1)
   }
 

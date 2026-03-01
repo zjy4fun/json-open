@@ -1,17 +1,21 @@
-# json-browser-cli
+# json-open
 
-把 `curl` 返回的 JSON 直接在浏览器里可折叠查看。
+把 JSON 直接在浏览器里可折叠查看（支持 `stdin` 和行内 JSON 字符串）。
 
 ## 安装
 
 ```bash
-npm i -g @zjy4fun/curl-json-browser
+npm i -g @zjy4fun/json-open
 ```
 
 ## 用法
 
 ```bash
+# 场景1：管道输入
 curl https://jsonplaceholder.typicode.com/todos/1 | json
+
+# 场景2：行内 JSON
+json '{"hello":"world","list":[1,2,3]}'
 ```
 
 执行后会自动打开浏览器，并展示树形 JSON：
@@ -30,7 +34,7 @@ echo '{"hello":"world","list":[1,2,3]}' | node bin/json.js
 现在使用 GitHub Actions 的 Trusted Publishing（OIDC），无需 `NPM_TOKEN`。
 
 1. 在 npm 包设置里启用 Trusted Publishing，并绑定 GitHub 仓库：
-   - Repository: `zjy4fun/curl-json-browser`
+   - Repository: `zjy4fun/json-open`
    - Workflow: `.github/workflows/publish.yml`
 2. 确认 workflow 具备 `id-token: write`（已配置）
 3. 在 GitHub 上创建 Release（或手动触发 workflow）即可发布
