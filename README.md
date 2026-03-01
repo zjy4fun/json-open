@@ -55,7 +55,7 @@ git init
 git add .
 git commit -m "feat: init json browser cli"
 git branch -M main
-git remote add origin git@github.com:<your-name>/json-browser-cli.git
+git remote add origin git@github.com:<your-name>/json-open.git
 git push -u origin main
 ```
 
