@@ -1,0 +1,25 @@
+{
+  "name": "@zhaijiayu/json-browser-cli",
+  "version": "0.1.0",
+  "description": "Open piped JSON in a browser with collapsible tree view",
+  "type": "module",
+  "bin": {
+    "json": "bin/json.js"
+  },
+  "scripts": {
+    "start": "node bin/json.js",
+    "test": "node --test"
+  },
+  "keywords": [
+    "json",
+    "curl",
+    "cli",
+    "browser",
+    "formatter"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}
