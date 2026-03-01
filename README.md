@@ -4,6 +4,10 @@ Open JSON in your browser with a collapsible tree view (supports stdin and inlin
 
 > A tiny CLI for command-line users: feed JSON, instantly inspect it in a browser with foldable structure.
 
+## Demo
+
+![json-open demo](./demo.gif)
+
 ---
 
 ## Why this exists
