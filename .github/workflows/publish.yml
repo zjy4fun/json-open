@@ -1,8 +1,9 @@
-name: Publish to npm (Trusted Publishing)
+name: Publish to npm (tag)
 
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - 'v*.*.*'
   workflow_dispatch:
 
 jobs:
@@ -11,18 +12,24 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
-          registry-url: https://registry.npmjs.org
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
 
-      - name: Install deps
-        run: npm ci
+      - run: npm ci
+      - run: npm test --if-present
+      - run: npm run build --if-present
 
-      - name: Publish (OIDC)
-        run: npm publish --access public --provenance
+      - name: Verify tag matches package version
+        run: |
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          [ "$TAG_VERSION" = "$PKG_VERSION" ] || (echo "Tag $TAG_VERSION != package.json $PKG_VERSION" && exit 1)
+
+      - run: npm publish --access public --provenance
